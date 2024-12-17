@@ -16,34 +16,6 @@ python clone_repos.py
 
 3. Process Verilog Files: Locate .v files within each repository and split them into modules for further processing.
 
-4.  After evaluating the code with the **code scorer**, save the code with scores exceeding 6.5 to data/first_round/dataset/fine_tune_dataset.jsonl. To execute this process, run:
-```
-python build_dataset.py
-```
-
-## Code Scorer
-
-![code_scorer](/pics/2.png)
-
-
-In this process, we utilize the bge-m3 sentence embedding model from FlagEmbedding as the embedding model for our code scorer.The steps to construct the scorer are as follows, with the working directory located at ./code_scorer:
-
-1. The processed raw data is stored in data/first_round/origin.jsonl. We randomly select 15,000 entries from this dataset and save them to data/first_round/score_by_gpt.jsonl. To perform this selection and scoring, run:
-```
-python code_mark_by_gpt.py
-```
-This will generate scores for the 15,000 entries and save them in data/first_round/score_by_gpt.jsonl.
-2. Encode all code embeddings using the bge-m3 model and save the results to data/first_round/embeddings.pt. Pre-encoding the data helps reduce the time required for training and inference. To obtain the encoded results, run:
-```
-python code_encode.py
-```
-Concatenate the encoded vectors with the scored data to create a dataset for training the MLP. To build the dataset and train the code scorer model, run:
-```
-python build_dataset.py
-python train_model.py
-```
-This will produce the trained code scorer model.
-
 ## LLM fine-tuning
 
 The current framework supports LoRA fine-tuning on a single GPU. For multi-GPU model fine-tuning, you can refer to frameworks like Pytroch DDP and Megatron-LM. Our framework supports fine-tuning for three models: 

@@ -1,0 +1,54 @@
+Please act as a professional verilog designer.
+
+Implement a simplified radix-2 divider module and the inputs are two 8-bit operands. It has a parameter DATAWIDTH, which is set to 8 by default but can be changed when instantiating the module.
+
+Module name:  
+    radix2_div 
+
+Parameter:
+DATAWIDTH = 8
+
+Input ports:
+    clk: Clock signal used for synchronous operation.
+    rstn: Active-low reset signal. Defined as 0 for reset and 1 for reset signal inactive.
+    en: 1-bit enable signal to initiate the division operation.
+    dividend: DATAWIDTH bit input signal [DATAWIDTH-1:0] representing the dividend for division.
+    divisor: DATAWIDTH bit input signal [DATAWIDTH-1:0] representing the divisor for division.
+Output ports:
+    ready: 1-bit output signal indicating the readiness of the module.
+    quotient: DATAWIDTH bit output signal [DATAWIDTH-1:0] representing the division quotient.
+    remainder: DATAWIDTH bit output signal [DATAWIDTH-1:0] representing the division remainder.
+    vld_out: 1-bit output signal indicating the validity of the output data.
+
+Implementation:
+State Machine:
+IDLE: Initial state, waiting for the enable signal (en) to become active.
+SUB: Subtract state, where the actual subtraction of divisor from dividend takes place.
+SHIFT: Shift state, shifting the dividend left (effectively multiplying by 2) until a certain condition is met.
+DONE: Done state, indicating the completion of the division.
+
+State Transition Logic:
+The next_state logic determines the next state based on the current state and the enable signal.
+State Register:
+current_state: Represents the current state of the FSM.
+next_state: Represents the next state to transition to.
+
+Data Registers:
+dividend_e: Extended version of the dividend to facilitate arithmetic operations.
+divisor_e: Extended version of the divisor.
+quotient_e: Register to store the calculated quotient.
+remainder_e: Register to store the calculated remainder.
+count: Counter for tracking the number of shifts performed.
+
+State Transition and Data Computation:
+State transition and data computation are performed in the combinational blocks using always @(*) and case statements.
+
+Output Assignments:
+quotient and remainder are assigned values from their respective registers.
+ready is asserted when the current state is IDLE.
+vld_out is asserted when the current state is DONE.
+
+Reset Logic:
+Resets all data registers and counters to zero on a negative edge of the asynchronous reset signal.
+
+Give me the complete code.

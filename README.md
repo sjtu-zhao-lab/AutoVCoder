@@ -54,17 +54,12 @@ The project file structure is as below:
 ├── src
 │   ├── first_round        
 │   │   ├── build_dataset  # Build dataset for first round
-│   │   └── code_scorer    # Code scorer for first round
 │   │   └── train          # Train model for first round
 │   ├── second_round       
 │   │   ├── build_dataset  # Build dataset for second round
-│   │   └── code_filter    # Code filter for second round
 │   │   └── train          # Train model for second round
 │   └── rag                # RAG dataset
-│       ├── build_dataset  # Build dataset for RAG
 │       └── train          # Train model for retriever
-├── downloads
-│   ├── download.py        # Script for download models
 ├── tests
 │   ├── rtllm              # RTLLM benchmark
 │   └── verilog-eval       # verilog-eval benchmark
